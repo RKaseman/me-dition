@@ -1,7 +1,6 @@
 
 var express = require("express");
 var bodyParser = require("body-parser");
-// var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 var axios = require("axios");
 
