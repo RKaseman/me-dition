@@ -7,7 +7,7 @@ const ModuleHead = (props) => {
     return (
         <header className="App-header flex-container">
             <div className="headerLeft">
-                <p>
+                <p className="addBook">
                     Add a book
                 </p>
             </div>
@@ -15,7 +15,7 @@ const ModuleHead = (props) => {
                 <h1 className="App-title">mE.dition</h1>
             </div>
             <div className="headerRight">
-                <p>
+                <p className="searchLibrary">
                     Search Library {props.count}
                 </p>
             </div>

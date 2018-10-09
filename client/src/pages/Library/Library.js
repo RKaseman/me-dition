@@ -1,22 +1,20 @@
 
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var axios = require("axios");
+// import React, { Component } from "react";
+import DeleteBtn from "../../components/DeleteBtn";
 
-var db = require("./models");
-
-var PORT = process.env.PORT || 3001;
-
-var app = express();
-
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
-
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/medition";
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
-
+class Lib extends Component {
+    state = {
+        books: [],
+        cover: "",
+        title: "",
+        subtitle: "",
+        author: "",
+        published: "",
+        kindle: "",
+        series: "",
+        number: ""
+    }
+}
 
 app.get("/scrape", function (req, res) {
     // db.Library.deleteMany({ "note": { "$exists": false } })

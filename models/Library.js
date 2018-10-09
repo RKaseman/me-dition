@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var ThreadSchema = new Schema({
+var LibrarySchema = new Schema({
     title: {
         type: String,
         required: true
@@ -30,7 +30,7 @@ var ThreadSchema = new Schema({
     }
 });
 
-var Thread = mongoose.model("Thread", ThreadSchema);
+var Library = mongoose.model("Library", LibrarySchema);
 
-module.exports = Thread;
+module.exports = Library;
 

@@ -1,6 +1,11 @@
 
 module.exports = {
-    Thread: require("./Thread"),
-    Note: require("./Note")
+    Library: require("./Library"),
+    Note: require("./Note"),
+
+// ################################
+
+    Library: require("./book")
+    
 };
 
