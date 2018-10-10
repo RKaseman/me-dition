@@ -23,7 +23,7 @@ app.get("/scrape", function (req, res) {
         try {
             return axios.get("https://www.googleapis.com/books/v1/volumes?q=intitle:global+brain&inauthor:howard+bloom&", {
                 params: {
-                    key: "AIzaSyA8DRL-hrmJktLRod7g8dbx2Y08h4SRrdU"
+                    key: ""
                 }
             })
         } catch (error) {
