@@ -1,7 +1,7 @@
 
 module.exports = {
-    Library: require("./library"),
-    Note: require("./note"),
+    Library: require("./Library"),
+    Note: require("./Note"),
 
 
     
