@@ -1,101 +1,118 @@
-
-// import React, { Component } from "react";
+import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
+import Jumbotron from "../../components/Jumbotron";
+import API from "../../utils/API";
+import { Link } from "react-router-dom";
+import { Col, Row, Container } from "../../components/Grid";
+import { List, ListItem } from "../../components/List";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 
-class Lib extends Component {
-    state = {
-        books: [],
-        cover: "",
-        title: "",
-        subtitle: "",
-        author: "",
-        published: "",
-        kindle: "",
-        series: "",
-        number: ""
+class Library extends Component {
+  state = {
+    books: [],
+    title: "",
+    author: "",
+    synopsis: ""
+  };
+
+  componentDidMount() {
+    this.loadBooks();
+  }
+
+  loadBooks = () => {
+    API.getBooks()
+      .then(res =>
+        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+      )
+      .catch(err => console.log(err));
+  };
+
+  deleteBook = id => {
+    API.deleteBook(id)
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.title && this.state.author) {
+      API.saveBook({
+        title: this.state.title,
+        author: this.state.author,
+        synopsis: this.state.synopsis
+      })
+        .then(res => this.loadBooks())
+        .catch(err => console.log(err));
     }
+  };
+
+  render() {
+    return (
+      <Container fluid>
+        <Row>
+          <Col size="md-6">
+            <Jumbotron>
+              <h1>What Books Should I Read?</h1>
+            </Jumbotron>
+            <form>
+              <Input
+                value={this.state.title}
+                onChange={this.handleInputChange}
+                name="title"
+                placeholder="Title (required)"
+              />
+              <Input
+                value={this.state.author}
+                onChange={this.handleInputChange}
+                name="author"
+                placeholder="Author (required)"
+              />
+              <TextArea
+                value={this.state.synopsis}
+                onChange={this.handleInputChange}
+                name="synopsis"
+                placeholder="Synopsis (Optional)"
+              />
+              <FormBtn
+                disabled={!(this.state.author && this.state.title)}
+                onClick={this.handleFormSubmit}
+              >
+                Submit Library
+              </FormBtn>
+            </form>
+          </Col>
+          <Col size="md-6 sm-12">
+            <Jumbotron>
+              <h1>Books On My List</h1>
+            </Jumbotron>
+            {this.state.books.length ? (
+              <List>
+                {this.state.books.map(book => (
+                  <ListItem key={book._id}>
+                    <Link to={"/books/" + book._id}>
+                      <strong>
+                        {book.title} by {book.author}
+                      </strong>
+                    </Link>
+                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
-app.get("/scrape", function (req, res) {
-    // db.Library.deleteMany({ "note": { "$exists": false } })
-    const getLibrary = () => {
-        try {
-            return axios.get("https://www.googleapis.com/books/v1/volumes?q=intitle:global+brain&inauthor:howard+bloom&", {
-                params: {
-                    key: "AIzaSyA8DRL-hrmJktLRod7g8dbx2Y08h4SRrdU"
-                }
-            })
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    const countLibrary = async () => {
-        getLibrary()
-        .then(response => {
-            if (response.data) {
-                console.log("1--------");
-                for (var i = 0; i < response.data.items.length; i++) {
-                    for (var j = 0; j < response.data.items[i].volumeInfo.authors.length; j++) {
-                        var result = {};
-                        result.title = response.data.items[i].volumeInfo.title;
-                        result.subtitle = response.data.items[i].volumeInfo.subtitle;
-                        result.authors = response.data.items[i].volumeInfo.authors[j];
-                        result.publishedDate = response.data.items[i].volumeInfo.publishedDate;
-                        console.log(result);
-                        console.log("--------");
-                        db.Library.create(result)
-                        .then(function (dbLibrary) {
-                            console.log(dbLibrary);
-                        })
-                        .catch(function (error) {
-                            return res.json(error);
-                        });
-                    }
-                }
-            }
-        })
-    }
-    countLibrary();
-});
-
-
-// routes
-
-app.get("/library", function (req, res) {
-    db.Library.find({})
-        .then(function (dbLibrary) {
-            res.json(dbLibrary);
-        })
-        .catch(function (error) {
-            res.json(error);
-        });
-});
-
-app.get("/library/:id", function (req, res) {
-    db.Library.findOne({ _id: req.params.id })
-        .populate("note")
-        .then(function (dbLibrary) {
-            res.json(dbLibrary);
-        })
-        .catch(function (error) {
-            res.json(error);
-        });
-});
-
-app.post("/library/:id", function (req, res) {
-    db.Note.create(req.body)
-        .then(function (dbNote) {
-            return db.Library.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-        })
-        .then(function (dbLibrary) {
-            res.json(dbLibrary);
-        })
-        .catch(function (error) {
-            res.json(error);
-        });
-});
-
-app.listen(PORT, function () {
-    console.log("listen port " + PORT);
-});
-
+export default Library;

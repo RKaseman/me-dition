@@ -19,7 +19,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
 app.get("/scrape", function (req, res) {
-    // db.Library.deleteMany({ "note": { "$exists": false } })
     const getLibrary = () => {
         try {
             return axios.get("https://www.googleapis.com/books/v1/volumes?q=intitle:global+brain&inauthor:howard+bloom&", {

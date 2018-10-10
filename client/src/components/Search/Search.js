@@ -10,6 +10,7 @@ const Search = (props) => {
                     <th colSpan="5">
                         Search.js
                         <br />
+                        <button id="scrapeNow">api</button>
                         <button>add</button>
                         <input type="text" placeholder="search..." id="myInput" />
                     </th>

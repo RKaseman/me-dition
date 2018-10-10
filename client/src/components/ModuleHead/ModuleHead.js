@@ -16,7 +16,7 @@ const ModuleHead = (props) => {
             </div>
             <div className="headerRight">
                 <p className="searchLibrary">
-                    Search Library {props.count}
+                    Search Library ({props.count})
                 </p>
             </div>
         </header>
