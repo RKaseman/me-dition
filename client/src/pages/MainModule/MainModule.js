@@ -1,11 +1,11 @@
 
 import React from "react";
 import "./MainModule.css";
-import ModuleHead from "../ModuleHead";
-import Search from "../Search";
-import TableHead from "../TableHead";
-import TableBody from "../TableBody";
-import Wrapper from "../Wrapper";
+import ModuleHead from "../../components/ModuleHead";
+import Search from "../../components/Search";
+import TableHead from "../../components/TableHead";
+import TableBody from "../../components/TableBody";
+import Wrapper from "../../components/Wrapper";
 import logos from "../../logos.json";
 
 class MainModule extends React.Component {

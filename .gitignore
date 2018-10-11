@@ -24,11 +24,5 @@ yarn-error.log*
 # added
 /client/node_modules
 /client/search.html
-/client/src/components/DeleteBtn
-/client/src/components/Form
-/client/src/components/Grid
-/client/src/components/Jumbotron
-/client/src/components/List
-/client/src/components/Nav
 .env
 

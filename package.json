@@ -29,14 +29,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/RKaseman/m2-dition.git"
+        "url": "git+https://github.com/RKaseman/me-dition.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/RKaseman/m2-dition/issues"
+        "url": "https://github.com/RKaseman/me-dition/issues"
     },
-    "homepage": "https://github.com/RKaseman/m2-dition#readme"
+    "homepage": "https://github.com/RKaseman/me-dition#readme"
 }
 
